@@ -13,7 +13,7 @@ public class GameScreen
     private JLabel labels[];        //Array of icons
 
 
-    public GameScreen(int newSecretCodeLenght) //If you are using this constructor then the height must be 0 and you will later request the secretCode
+    public GameScreen(int newSecretCodeLenght) //If you are using this constructor then this is the first game screen and you will later request the secretCode from this game screen
     {
         secretCodeLenght = newSecretCodeLenght;
         gamePanel.setLayout(new GridLayout(1,secretCodeLenght));
@@ -30,13 +30,31 @@ public class GameScreen
 
     public GameScreen(int newSecretCode,int newSecretCodeLenght)
     {
+        secretCodeLenght = newSecretCodeLenght;
+        gamePanel.setLayout(new GridLayout(1,secretCodeLenght));
         secretCode = newSecretCode;
+
+        for(int i=0; i<secretCodeLenght; i++)
+        {
+            labels[i] = new JLabel(new Picture("Empty.png"));
+            gamePanel.add(labels[i]);
+        }
     }
 
-
-    void inputColour()
+    public void receiveButtonPress(int colour)
     {
+        if(position == secretCodeLenght-1)
+        {
+            
+        }
+        else
+        {
+            if()
+            {
 
+            }
+            labels[position] = 
+        }
     }
 
     public int getCorrect()
