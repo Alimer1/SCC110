@@ -11,6 +11,7 @@ public class GameController
         JLabel title = new JLabel("Hello There Buttons >.<");
         ColourScreen colourPanel = new ColourScreen(7);
 
+        
 
         panel1.setLayout(new BorderLayout());
 

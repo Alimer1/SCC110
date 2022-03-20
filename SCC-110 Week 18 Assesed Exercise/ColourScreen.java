@@ -21,7 +21,7 @@ public class ColourScreen implements ActionListener
             currentFileName = "Colour_"+i+".png";
             buttons[i] = new JButton(new Picture(currentFileName));
             colourPanel.add(buttons[i]);
-            buttons[i].addActionListener(this);;
+            buttons[i].addActionListener(this);
         }
     }
     
