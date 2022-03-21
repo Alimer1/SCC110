@@ -1,12 +1,11 @@
-import javax.lang.model.util.ElementScanner14;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class GameController implements ActionListener
 {
-    private int secretCodeLenght;
-    private int difficulty;
+    private int codeLenght = 4;
+    private int difficulty = 6;
     private int currentDifficulty;
     private int currentProgress = 0;
     private int secretCode[];
@@ -26,18 +25,33 @@ public class GameController implements ActionListener
     private static int numberOfColours = 7;
 
 
-    public GameController(int newSecretCodeLenght,int newDifficulty)
+    public GameController()
     {
-        secretCodeLenght = newSecretCodeLenght;
-        difficulty = newDifficulty;
+        displaySetup();
+    }
 
+    public GameController(int newDifficulty)
+    {
+        difficulty = newDifficulty;
+        displaySetup();
+    }
+
+    public GameController(int newCodeLenght,int newDifficulty)
+    {
+        codeLenght = newCodeLenght;
+        difficulty = newDifficulty;
+        displaySetup();
+    }
+
+    private void displaySetup()
+    {
         mainPanel.setLayout(new BorderLayout());
         gamePanel.setLayout(new GridLayout(difficulty,1));
         resultPanel.setLayout(new GridLayout(difficulty,1));
 
-        secretCode = new int[secretCodeLenght];
+        secretCode = new int[codeLenght];
 
-        for(int i=0; i<secretCodeLenght; i++)
+        for(int i=0; i<codeLenght; i++)
         {
             double n = Math.random()*numberOfColours;
             secretCode[i] = (int) n;
@@ -51,8 +65,8 @@ public class GameController implements ActionListener
 
         for(int i=0; i<difficulty; i++)
         {
-            gameScreens[i] = new GameScreen(secretCodeLenght,numberOfColours,secretCode); //PROBLEM HERE
-            resultScreens[i] = new ResultScreen(secretCodeLenght);
+            gameScreens[i] = new GameScreen(codeLenght,numberOfColours,secretCode); //PROBLEM HERE
+            resultScreens[i] = new ResultScreen(codeLenght);
             gamePanel.add(gameScreens[i].getGameScreen());
             resultPanel.add(resultScreens[i].getResultScreen());
         }
@@ -78,7 +92,7 @@ public class GameController implements ActionListener
         mainFrame.setSize(500,500);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
-    }
+    } 
 
     public void actionPerformed(ActionEvent e) //Check which button was pressed
     {
@@ -88,16 +102,16 @@ public class GameController implements ActionListener
                 if(e.getSource() == buttons[i])
                 {
                     System.out.println(""+i);
-                    gameScreens[currentDifficulty].receiveButtonPress(i);
+                    gameScreens[currentDifficulty].updateScreen(i);
                     currentProgress++;
-                    if(currentProgress == secretCodeLenght)
+                    if(currentProgress == codeLenght)
                     {
                         resultScreens[currentDifficulty].setCorrect(gameScreens[currentDifficulty].getCorrect());           //Passing the correct from one to another
                         resultScreens[currentDifficulty].setHalfCorrect(gameScreens[currentDifficulty].getHalfCorrect());   //Passing the halfCorrect from one to another
                         resultScreens[currentDifficulty].updateScreen();
                         currentDifficulty++;
                         currentProgress = 0;
-                        if(gameScreens[currentDifficulty-1].getCorrect()==secretCodeLenght)
+                        if(gameScreens[currentDifficulty-1].getCorrect()==codeLenght)
                         {
                             System.out.println("Victory");
                         }
@@ -107,9 +121,7 @@ public class GameController implements ActionListener
                         }
                     }
                 }
-    
             }
         }
     }
-
 }

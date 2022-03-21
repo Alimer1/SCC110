@@ -1,35 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class ResultScreen
 {
 
     private JPanel resultPanel = new JPanel();
-    private int secretCodeLenght;
+    private int codeLenght;
     private int width;
     private JLabel labels[];        //Array of icons
     private int correct = 0;        //How many correct guesses have been made in the correct location
     private int halfCorrect = 0;    //How many correct guesses have been made in the wrong location
 
-    public ResultScreen(int newSecretCodeLenght)
+    public ResultScreen(int newCodeLenght)
     {
-        secretCodeLenght = newSecretCodeLenght;
+        codeLenght = newCodeLenght;
         
-        if(secretCodeLenght % 2 == 1)
+        if(codeLenght % 2 == 1)
         {
-            width = secretCodeLenght+1;
+            width = codeLenght+1;
         }
         else
         {
-            width = secretCodeLenght;
+            width = codeLenght;
         }
 
         resultPanel.setLayout(new GridLayout(2,width));
 
-        labels = new JLabel[secretCodeLenght];
+        labels = new JLabel[codeLenght];
 
-        for(int i=0; i<secretCodeLenght; i++)
+        for(int i=0; i<codeLenght; i++)
         {
             labels[i] = new JLabel(new Picture("Empty.png"));
             resultPanel.add(labels[i]);

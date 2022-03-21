@@ -1,34 +1,35 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class GameScreen
 {
-    private int numberOfColours;    //Number Of Colours
-    private int secretCodeLenght;   //Lenght of the secret code
+    private int codeLenght;   //Lenght of the secret code
     private int position = 0;       //Position of the target from left to right 0-1-2-3-...
     private int correct = 0;        //How many correct guesses have been made in the correct location
     private int halfCorrect = 0;    //How many correct guesses have been made in the wrong location
+
     private int secretCode[];       //Answer of the game
     private int guess[];            //Guess for the answer
-    private boolean guessClaim[];
+
+    private boolean guessClaim[];   
+
     private JPanel gamePanel = new JPanel();       //Panel that will be sent to the GameController
+
     private JLabel labels[];        //Array of icons
 
     
 
-    public GameScreen(int newSecretCodeLenght,int newNumberOfColours,int newSecretCode[])
+    public GameScreen(int newCodeLenght,int newNumberOfColours,int newSecretCode[])
     {
-        numberOfColours = newNumberOfColours;
-        secretCodeLenght = newSecretCodeLenght;
-        gamePanel.setLayout(new GridLayout(1,secretCodeLenght)); //PROBLEM HERE
+        codeLenght = newCodeLenght;
+        gamePanel.setLayout(new GridLayout(1,codeLenght)); //PROBLEM HERE
         secretCode = newSecretCode;
-        guess = new int[secretCodeLenght];
-        guessClaim = new boolean[secretCodeLenght];
-        labels = new JLabel[secretCodeLenght];
+        guess = new int[codeLenght];
+        guessClaim = new boolean[codeLenght];
+        labels = new JLabel[codeLenght];
 
 
-        for(int i=0; i<secretCodeLenght; i++)
+        for(int i=0; i<codeLenght; i++)
         {
             labels[i] = new JLabel(new Picture("Empty.png"));
             gamePanel.add(labels[i]);
@@ -37,7 +38,7 @@ public class GameScreen
 
     private void correctCalculator()   //Calculates how many correct and halfCorrect guess there are
     {
-        for(int i=0;i<secretCodeLenght;i++)
+        for(int i=0;i<codeLenght;i++)
         {
             if(secretCode[i]==guess[i])
             {
@@ -46,11 +47,11 @@ public class GameScreen
             }
         }
         System.out.println("Number of corrects:"+correct);
-        for(int i=0;i<secretCodeLenght;i++)
+        for(int i=0;i<codeLenght;i++)
         {
             int j=0;
             boolean exit=false;
-            while(j<secretCodeLenght && exit == false)
+            while(j<codeLenght && exit == false)
             {
                 if(guessClaim[j]==false && secretCode[j]==guess[i])
                 {
@@ -64,12 +65,12 @@ public class GameScreen
         System.out.println("Number of halfCorrects:"+halfCorrect);
     }
 
-    public void receiveButtonPress(int colour)
+    public void updateScreen(int colour)
     {
         labels[position].setIcon(new Picture("Colour_"+colour+".png"));
         guess[position] = colour;
         position++;
-        if(position == secretCodeLenght)
+        if(position == codeLenght)
         {
             correctCalculator();
         }
