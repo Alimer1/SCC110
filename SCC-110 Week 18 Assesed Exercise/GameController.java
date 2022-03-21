@@ -5,6 +5,8 @@ import java.awt.event.*;
 public class GameController implements ActionListener
 {
     private int secretCodeLenght;
+    private int difficulty;
+    private int currentDifficulty;
     private int secretCode[];
 
     private JFrame mainFrame = new JFrame("Alimer's Special Game");
@@ -22,9 +24,11 @@ public class GameController implements ActionListener
     private static int numberOfColours = 7;
 
 
-    public GameController(int newSecretCodeLenght,int difficulty)
+    public GameController(int newSecretCodeLenght,int newDifficulty)
     {
         secretCodeLenght = newSecretCodeLenght;
+
+        difficulty = newDifficulty;
 
         mainPanel.setLayout(new BorderLayout());
         gamePanel.setLayout(new GridLayout(difficulty,1));
@@ -36,8 +40,11 @@ public class GameController implements ActionListener
         {
             double n = Math.random()*secretCodeLenght;
             secretCode[i] = (int) n;
+            System.out.println(""+secretCode[i]);
         }
 
+        System.out.println("End Of Secret Code");
+        
         gameScreens = new GameScreen[difficulty];
         resultScreens = new ResultScreen[difficulty];
 
@@ -78,10 +85,12 @@ public class GameController implements ActionListener
         {
             if(e.getSource() == buttons[i])
             {
-
+                System.out.println(""+i);
+                gameScreens[currentDifficulty].receiveButtonPress(i);
             }
 
         }
+        
     }
 
 }

@@ -60,11 +60,13 @@ public class GameScreen
 
     public void receiveButtonPress(int colour)
     {
+        labels[position].setIcon(new Picture("Colour_"+colour+".png"));
         guess[position] = colour;
         position++;
         if(position == secretCodeLenght)
         {
             correctCalculator();
+            System.out.println("We are here");
         }
         
     }
