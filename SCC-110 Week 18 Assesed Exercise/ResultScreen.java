@@ -32,7 +32,14 @@ public class ResultScreen
         }
     }
 
-    public JPanel getResultScreen(int correct,int halfCorrect)
+    public void updateResultScreen()
+    {
+        
+    }
+
+
+
+    public JPanel getResultScreen()
     {
         return(resultPanel);
     }

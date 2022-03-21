@@ -67,6 +67,11 @@ public class GameScreen
         }
         
     }
+    
+    public JPanel getGameScreen()
+    {
+        return(gamePanel);
+    }
 
     public int getCorrect()
     {
