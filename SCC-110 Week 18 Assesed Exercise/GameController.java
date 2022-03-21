@@ -41,14 +41,14 @@ public class GameController
 
         for(int i=0; i<difficulty; i++)
         {
-            gameScreens[i] = new GameScreen(secretCodeLenght,numberOfColours,secretCode);
+            gameScreens[i] = new GameScreen(secretCodeLenght,numberOfColours,secretCode); //PROBLEM HERE
             resultScreens[i] = new ResultScreen(secretCodeLenght);
             gamePanel.add(gameScreens[i].getGameScreen());
             resultPanel.add(resultScreens[i].getResultScreen());
         }
 
+        mainPanel.add(resultPanel,BorderLayout.EAST);
         mainPanel.add(gamePanel,BorderLayout.WEST);
-        mainPanel.add(gamePanel,BorderLayout.EAST);
         mainPanel.add(title,BorderLayout.NORTH);
         mainPanel.add(colourPanel.getColourScreen(),BorderLayout.SOUTH);
 

@@ -24,6 +24,8 @@ public class ResultScreen
         }
 
         resultPanel.setLayout(new GridLayout(2,width));
+        
+        labels = new JLabel[secretCodeLenght];
 
         for(int i=0; i<secretCodeLenght; i++)
         {
@@ -34,7 +36,7 @@ public class ResultScreen
 
     public void updateResultScreen()
     {
-        
+
     }
 
 

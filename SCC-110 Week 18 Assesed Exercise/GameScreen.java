@@ -12,7 +12,7 @@ public class GameScreen
     private int secretCode[];       //Answer of the game
     private int guess[];            //Guess for the answer
     private boolean guessClaim[];
-    private JPanel gamePanel;       //Panel that will be sent to the GameController
+    private JPanel gamePanel = new JPanel();       //Panel that will be sent to the GameController
     private JLabel labels[];        //Array of icons
 
     
@@ -21,10 +21,11 @@ public class GameScreen
     {
         numberOfColours = newNumberOfColours;
         secretCodeLenght = newSecretCodeLenght;
-        gamePanel.setLayout(new GridLayout(1,secretCodeLenght));
+        gamePanel.setLayout(new GridLayout(1,secretCodeLenght)); //PROBLEM HERE
         secretCode = newSecretCode;
         guess = new int[secretCodeLenght];
         guessClaim = new boolean[secretCodeLenght];
+        labels = new JLabel[secretCodeLenght];
 
 
         for(int i=0; i<secretCodeLenght; i++)
