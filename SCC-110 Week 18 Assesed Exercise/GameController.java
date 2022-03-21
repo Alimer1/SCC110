@@ -20,7 +20,7 @@ public class GameController implements ActionListener
     private JPanel mainPanel = new JPanel();                    //The panel that will hold everthing in a borderlayout
     private JPanel gamePanel = new JPanel();                    //Panel on the left side of the screen showing our current and past inputs
     private JPanel resultPanel = new JPanel();                  //Panel on the right side of the screen showing the correctness of our guess
-    private final Color bg = new Color(140,102,22);                   //Colour of the background, same as the symbols
+    private final Color bg = new Color(100,100,100);                   //Colour of the background, same as the symbols
     
     private JPanel colourPanel = new JPanel();  //Panel that will hold our colour buttons
     private JButton buttons[];                  //Array of buttons;
@@ -83,8 +83,7 @@ public class GameController implements ActionListener
         for(int i=0; i<codeLenght; i++)
         {
             double n = Math.random()*numberOfColours;   //Returns a number that is (0 <= x < 7)
-            secretCode[i] = (int) n;                    //We roll that number down to a integer
-            System.out.println(""+secretCode[i]);       //and 1 by 1 we add them to the array
+            secretCode[i] = (int) n;                    //We roll that number down to a integer and 1 by 1 we add them to the array
         }
 
         for(int i=0; i<codeDifficulty; i++)
@@ -130,7 +129,8 @@ public class GameController implements ActionListener
         String str = new String();
         for(int i=0;i<arraySize;i++)
         {
-            str = str+array[i];
+            int temp = array[i]+1; //adding 1 here so cross referencing will be better the game uses 0-6 in code but on ui it is 1-7 so yeah
+            str = str+temp;
         }
         return(str);
     }
@@ -159,7 +159,7 @@ public class GameController implements ActionListener
                         {
                             winState = 2;
                         }
-                        if(currentDifficulty==codeDifficulty && !(gameScreens[currentDifficulty].getCorrect()==codeLenght)) //if corrects answers don't match the code lenght and this is the last check then you lose
+                        if(currentDifficulty==codeDifficulty-1 && !(gameScreens[currentDifficulty].getCorrect()==codeLenght)) //if corrects answers don't match the code lenght and this is the last check then you lose
                         {
                             winState = 1;
                         }
@@ -169,7 +169,7 @@ public class GameController implements ActionListener
 
             }
         }
-        if(winState == 1) //these if statements lock you
+        if(winState == 1) //these if statements lock you when you win or loose so that you don't go out of limits
         {
             System.out.println("You Lost");
             System.out.println("Actual Answer Was:"+intArrayToString(secretCode,codeLenght));

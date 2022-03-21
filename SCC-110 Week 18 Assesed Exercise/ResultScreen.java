@@ -9,7 +9,7 @@ public class ResultScreen
     private int width;
 
     private JLabel labels[];        //Array of icons
-    private final Color bg = new Color(140,102,22);                   //Colour of the background, same as the symbols
+    private final Color bg = new Color(100,100,100);                   //Colour of the background, same as the symbols
 
     private int correct = 0;        //How many correct guesses have been made in the correct location
     private int halfCorrect = 0;    //How many correct guesses have been made in the wrong location
@@ -38,7 +38,7 @@ public class ResultScreen
 
         for(int i=0; i<codeLenght; i++)
         {
-            labels[i] = new JLabel(new Picture("Empty.png"));
+            labels[i] = new JLabel(new Picture("HalfEmpty.png"));
             resultPanel.add(labels[i]);
         }
     }

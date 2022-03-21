@@ -14,7 +14,7 @@ public class GameScreen
     private boolean guessClaim[];   
 
     private JPanel gamePanel = new JPanel();       //Panel that will be sent to the GameController
-    private final Color bg = new Color(140,102,22);                   //Colour of the background, same as the symbols
+    private final Color bg = new Color(100,100,100);                   //Colour of the background, same as the symbols
 
     private JLabel labels[];        //Array of icons
 
