@@ -173,11 +173,13 @@ public class GameController implements ActionListener
         {
             System.out.println("You Lost");
             System.out.println("Actual Answer Was:"+intArrayToString(secretCode,codeLenght));
+            title.setText("You Lost Actual Answer Was:"+intArrayToString(secretCode,codeLenght));
         }
         if(winState == 2)
         {
             System.out.println("You Win");
             System.out.println("Answer Was:"+intArrayToString(secretCode,codeLenght));
+            title.setText("You Win!! Answer Was:"+intArrayToString(secretCode,codeLenght));
         }
     }
 }

@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class that contains the main code entering screen
+ */
 public class GameScreen
 {
     private int codeLenght;   //Lenght of the secret code
@@ -56,7 +59,7 @@ public class GameScreen
                 correct++;
             }
         }
-        System.out.println("Number of corrects:"+correct);
+        //System.out.println("Number of corrects:"+correct); //Debugging Stuff
         for(int i=0;i<codeLenght;i++)
         {
             int j=0;
@@ -72,7 +75,7 @@ public class GameScreen
                 j++;
             }
         }
-        System.out.println("Number of halfCorrects:"+halfCorrect);
+        //System.out.println("Number of halfCorrects:"+halfCorrect); //Debugging Stuff
     }
 
     /**

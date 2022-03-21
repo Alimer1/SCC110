@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class that shows the result on the left
+ */
 public class ResultScreen
 {
 
