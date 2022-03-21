@@ -1,3 +1,4 @@
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -81,25 +82,34 @@ public class GameController implements ActionListener
 
     public void actionPerformed(ActionEvent e) //Check which button was pressed
     {
-        for(int i=0; i<numberOfColours; i++)
         {
-            if(e.getSource() == buttons[i])
+            for(int i=0; i<numberOfColours; i++)
             {
-                System.out.println(""+i);
-                gameScreens[currentDifficulty].receiveButtonPress(i);
-                currentProgress++;
-                if(currentProgress == secretCodeLenght)
+                if(e.getSource() == buttons[i])
                 {
-                    resultScreens[currentDifficulty].setCorrect(gameScreens[currentDifficulty].getCorrect());           //Passing the correct from one to another
-                    resultScreens[currentDifficulty].setHalfCorrect(gameScreens[currentDifficulty].getHalfCorrect());   //Passing the halfCorrect from one to another
-                    resultScreens[currentDifficulty].updateScreen();
-                    currentDifficulty++;
-                    currentProgress = 0;
+                    System.out.println(""+i);
+                    gameScreens[currentDifficulty].receiveButtonPress(i);
+                    currentProgress++;
+                    if(currentProgress == secretCodeLenght)
+                    {
+                        resultScreens[currentDifficulty].setCorrect(gameScreens[currentDifficulty].getCorrect());           //Passing the correct from one to another
+                        resultScreens[currentDifficulty].setHalfCorrect(gameScreens[currentDifficulty].getHalfCorrect());   //Passing the halfCorrect from one to another
+                        resultScreens[currentDifficulty].updateScreen();
+                        currentDifficulty++;
+                        currentProgress = 0;
+                        if(gameScreens[currentDifficulty-1].getCorrect()==secretCodeLenght)
+                        {
+                            System.out.println("Victory");
+                        }
+                        if(currentDifficulty==difficulty)
+                        {
+                            System.out.println("Defeat");
+                        }
+                    }
                 }
+    
             }
-
         }
-        
     }
 
 }

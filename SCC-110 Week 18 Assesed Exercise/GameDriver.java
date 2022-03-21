@@ -6,6 +6,6 @@ public class GameDriver
 {
     public static void main(String[] args)
     {
-        GameController game = new GameController(10,10);
+        GameController game = new GameController(4,4);
     }
 }
