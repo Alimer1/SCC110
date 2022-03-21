@@ -7,6 +7,7 @@ public class GameController implements ActionListener
     private int secretCodeLenght;
     private int difficulty;
     private int currentDifficulty;
+    private int currentProgress = 0;
     private int secretCode[];
 
     private JFrame mainFrame = new JFrame("Alimer's Special Game");
@@ -27,7 +28,6 @@ public class GameController implements ActionListener
     public GameController(int newSecretCodeLenght,int newDifficulty)
     {
         secretCodeLenght = newSecretCodeLenght;
-
         difficulty = newDifficulty;
 
         mainPanel.setLayout(new BorderLayout());
@@ -38,7 +38,7 @@ public class GameController implements ActionListener
 
         for(int i=0; i<secretCodeLenght; i++)
         {
-            double n = Math.random()*secretCodeLenght;
+            double n = Math.random()*numberOfColours;
             secretCode[i] = (int) n;
             System.out.println(""+secretCode[i]);
         }
@@ -87,6 +87,15 @@ public class GameController implements ActionListener
             {
                 System.out.println(""+i);
                 gameScreens[currentDifficulty].receiveButtonPress(i);
+                currentProgress++;
+                if(currentProgress == secretCodeLenght)
+                {
+                    resultScreens[currentDifficulty].setCorrect(gameScreens[currentDifficulty].getCorrect());           //Passing the correct from one to another
+                    resultScreens[currentDifficulty].setHalfCorrect(gameScreens[currentDifficulty].getHalfCorrect());   //Passing the halfCorrect from one to another
+                    resultScreens[currentDifficulty].updateScreen();
+                    currentDifficulty++;
+                    currentProgress = 0;
+                }
             }
 
         }

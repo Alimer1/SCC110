@@ -44,18 +44,24 @@ public class GameScreen
                 guessClaim[i] = true;   //When we find a match we claim that spot in the guessClaim array
                 correct++;
             }
-            else    //We need to check if our current guess is a halfCorrect
+        }
+        System.out.println("Number of corrects:"+correct);
+        for(int i=0;i<secretCodeLenght;i++)
+        {
+            int j=0;
+            boolean exit=false;
+            while(j<secretCodeLenght && exit == false)
             {
-                for(int j=0; j<secretCodeLenght; j++)
+                if(guessClaim[j]==false && secretCode[j]==guess[i])
                 {
-                    if(guessClaim[j]==false && secretCode[j]==guess[i])
-                    {
-                        guessClaim[j] = true;   //When we find a match we claim that spot in the guessClaim array
-                        halfCorrect++;
-                    }
+                    guessClaim[j] = true;   //When we find a match we claim that spot in the guessClaim array
+                    halfCorrect++;
+                    exit = true;
                 }
+                j++;
             }
         }
+        System.out.println("Number of halfCorrects:"+halfCorrect);
     }
 
     public void receiveButtonPress(int colour)
@@ -66,9 +72,7 @@ public class GameScreen
         if(position == secretCodeLenght)
         {
             correctCalculator();
-            System.out.println("We are here");
         }
-        
     }
     
     public JPanel getGameScreen()
