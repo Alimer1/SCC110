@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameController
+public class GameController implements ActionListener
 {
     private int secretCodeLenght;
     private int secretCode[];
@@ -11,6 +11,9 @@ public class GameController
     private JPanel mainPanel = new JPanel();
     private JPanel gamePanel = new JPanel();
     private JPanel resultPanel = new JPanel();
+    
+    private JPanel colourPanel = new JPanel();  //Panel that will hold our colour buttons
+    private JButton buttons[];                  //Array of buttons;
 
     private JLabel title = new JLabel("Hello There Buttons >.<");
     private GameScreen gameScreens[];
@@ -46,35 +49,22 @@ public class GameController
             resultPanel.add(resultScreens[i].getResultScreen());
         }
 
-        
+        colourPanel.setLayout(new GridLayout(1,numberOfColours));
+        buttons = new JButton[numberOfColours];
+        String currentFileName;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        for(int i=0; i<numberOfColours; i++)
+        {
+            currentFileName = "Colour_"+i+".png";
+            buttons[i] = new JButton(new Picture(currentFileName));
+            colourPanel.add(buttons[i]);
+            buttons[i].addActionListener(this);
+        }
 
         mainPanel.add(resultPanel,BorderLayout.EAST);
         mainPanel.add(gamePanel,BorderLayout.WEST);
         mainPanel.add(title,BorderLayout.NORTH);
-        mainPanel.add(colourPanel.getColourScreen(),BorderLayout.SOUTH);
+        mainPanel.add(colourPanel,BorderLayout.SOUTH);
 
         mainFrame.setContentPane(mainPanel);
         mainFrame.setSize(500,500);
@@ -82,9 +72,16 @@ public class GameController
         mainFrame.setVisible(true);
     }
 
-    public void receiveButtonPress()
+    public void actionPerformed(ActionEvent e) //Check which button was pressed
     {
+        for(int i=0; i<numberOfColours; i++)
+        {
+            if(e.getSource() == buttons[i])
+            {
 
+            }
+
+        }
     }
 
 }
