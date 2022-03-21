@@ -11,6 +11,10 @@ public class ResultScreen
     private int correct = 0;        //How many correct guesses have been made in the correct location
     private int halfCorrect = 0;    //How many correct guesses have been made in the wrong location
 
+    /**
+     * Constructor of the result screen class.
+     * @param newCodeLenght Lenght of the secret code.
+     */
     public ResultScreen(int newCodeLenght)
     {
         codeLenght = newCodeLenght;
@@ -35,16 +39,27 @@ public class ResultScreen
         }
     }
 
-    public void setCorrect(int i)
+    /**
+     * Sets the correct variable in the result screen class.
+     * @param newCorrect Number of correct guesses.
+     */
+    public void setCorrect(int newCorrect)
     {
-        correct = i;
+        correct = newCorrect;
     }
 
-    public void setHalfCorrect(int i)
+    /**
+     * Sets the half correct variable in the result screen class.
+     * @param newHalfCorrect Number of half correct guesses.
+     */
+    public void setHalfCorrect(int newHalfCorrect)
     {
-        halfCorrect = i;
+        halfCorrect = newHalfCorrect;
     }
 
+    /**
+     * Updates the labes on itself with the currently stored correct and half correct values. Don't forget to set these beforehand otherwise nothing will happen.
+     */
     public void updateScreen()
     {
         int i=0;
@@ -60,7 +75,10 @@ public class ResultScreen
         }
     }
 
-
+    /**
+     * Gives you the constructed result screen JPanel.
+     * @return The constructed result screen JPanel.
+     */
     public JPanel getResultScreen()
     {
         return(resultPanel);

@@ -18,7 +18,12 @@ public class GameScreen
     private JLabel labels[];        //Array of icons
 
     
-
+    /**
+     * Constructor of GameScreen class.
+     * @param newCodeLenght Lenght of the secret code.
+     * @param newNumberOfColours How many unique colours there are in the game.
+     * @param newSecretCode The secret code of the game.
+     */
     public GameScreen(int newCodeLenght,int newNumberOfColours,int newSecretCode[])
     {
         codeLenght = newCodeLenght;
@@ -36,6 +41,9 @@ public class GameScreen
         }
     }
 
+    /**
+     * Calculates how many correct and halfcorrect answers are in the guess of this class it will modify the private values of the class rather than returning something.
+     */
     private void correctCalculator()   //Calculates how many correct and halfCorrect guess there are
     {
         for(int i=0;i<codeLenght;i++)
@@ -65,6 +73,10 @@ public class GameScreen
         System.out.println("Number of halfCorrects:"+halfCorrect);
     }
 
+    /**
+     * Called upon when a new info arrives about what colour next will be placed ont he screen.
+     * @param colour Colour code of the new input (0-1-2-3-4-5-...).
+     */
     public void updateScreen(int colour)
     {
         labels[position].setIcon(new Picture("Colour_"+colour+".png"));
@@ -75,20 +87,38 @@ public class GameScreen
             correctCalculator();
         }
     }
-    
+
+    /**
+     * Gives you the constructed game screen JPanel.
+     * @return The constructed game screen JPanel.
+     */
     public JPanel getGameScreen()
     {
         return(gamePanel);
     }
 
+    /**
+     * Gives you the number of correct answers found by the Class compared to the correct answer.
+     * @return Number of correct guesses(If the answer is equal to the lenght of the code than we got every thing correct and it is a victory condition).
+     */
     public int getCorrect()
     {
         return(correct);
     }
+
+    /**
+     * Gives you the number of half correct answers found by the Class compared to the correct answer.
+     * @return Number of half correct guesses.
+     */
     public int getHalfCorrect()
     {
         return(halfCorrect);
     }
+
+    /**
+     * Gives you how far right the last got answer is from the start.
+     * @return Where the next thing will be drawn on the screen(0 meaning left).
+     */
     public int getPosition()
     {
         return(position);

@@ -2,15 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
+
+
+
+/**
+* The GameController class is the both framework and
+* the brains of the whole operation
+**/
 public class GameController implements ActionListener
 {
     private int codeLenght = 4;
-    private int difficulty = 6;
-    private int currentDifficulty;
+    private int codeDifficulty = 6;
+    private int currentDifficulty = 0;
     private int currentProgress = 0;
     private int secretCode[];
 
-    private JFrame mainFrame = new JFrame("Alimer's Special Game");
+    private JFrame mainFrame = new JFrame("Alimer's Game");
     private JPanel mainPanel = new JPanel();
     private JPanel gamePanel = new JPanel();
     private JPanel resultPanel = new JPanel();
@@ -25,29 +33,44 @@ public class GameController implements ActionListener
     private static int numberOfColours = 7;
 
 
+    /**
+    * Creats the game with default difficulty and default code lenght.
+    */
     public GameController()
     {
         displaySetup();
     }
 
-    public GameController(int newDifficulty)
+    /**
+    * Creats the game with the given difficulty and default code lenght.
+    * @param newCodeDifficulty Difficulty of the game (How many tries are allowed before a gameover).
+    */
+    public GameController(int newCodeDifficulty)
     {
-        difficulty = newDifficulty;
+        codeDifficulty = newCodeDifficulty;
         displaySetup();
     }
 
-    public GameController(int newCodeLenght,int newDifficulty)
+    /**
+    * Creats the game with the given difficulty and default code lenght.
+    * @param newCodeDifficulty Difficulty of the game (How many tries are allowed before a gameover).
+    * @param newCodeLenght Lenght of the secret code.
+    */
+    public GameController(int newCodeDifficulty,int newCodeLenght)
     {
+        codeDifficulty = newCodeDifficulty;
         codeLenght = newCodeLenght;
-        difficulty = newDifficulty;
         displaySetup();
     }
 
+    /**
+    * Sets the frames and the panels of our game then populating the east and the west panels with their array of GameScreen and ResultScreen.
+    */
     private void displaySetup()
     {
         mainPanel.setLayout(new BorderLayout());
-        gamePanel.setLayout(new GridLayout(difficulty,1));
-        resultPanel.setLayout(new GridLayout(difficulty,1));
+        gamePanel.setLayout(new GridLayout(codeDifficulty,1));
+        resultPanel.setLayout(new GridLayout(codeDifficulty,1));
 
         secretCode = new int[codeLenght];
 
@@ -60,10 +83,10 @@ public class GameController implements ActionListener
 
         System.out.println("End Of Secret Code");
         
-        gameScreens = new GameScreen[difficulty];
-        resultScreens = new ResultScreen[difficulty];
+        gameScreens = new GameScreen[codeDifficulty];
+        resultScreens = new ResultScreen[codeDifficulty];
 
-        for(int i=0; i<difficulty; i++)
+        for(int i=0; i<codeDifficulty; i++)
         {
             gameScreens[i] = new GameScreen(codeLenght,numberOfColours,secretCode); //PROBLEM HERE
             resultScreens[i] = new ResultScreen(codeLenght);
@@ -94,6 +117,9 @@ public class GameController implements ActionListener
         mainFrame.setVisible(true);
     } 
 
+    /**
+     * Gets run every time a button is clicked
+     */
     public void actionPerformed(ActionEvent e) //Check which button was pressed
     {
         {
@@ -115,7 +141,7 @@ public class GameController implements ActionListener
                         {
                             System.out.println("Victory");
                         }
-                        if(currentDifficulty==difficulty)
+                        if(currentDifficulty==codeDifficulty)
                         {
                             System.out.println("Defeat");
                         }
