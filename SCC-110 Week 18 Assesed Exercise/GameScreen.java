@@ -14,6 +14,7 @@ public class GameScreen
     private boolean guessClaim[];   
 
     private JPanel gamePanel = new JPanel();       //Panel that will be sent to the GameController
+    private final Color bg = new Color(140,102,22);                   //Colour of the background, same as the symbols
 
     private JLabel labels[];        //Array of icons
 
@@ -27,7 +28,8 @@ public class GameScreen
     public GameScreen(int newCodeLenght,int newNumberOfColours,int newSecretCode[])
     {
         codeLenght = newCodeLenght;
-        gamePanel.setLayout(new GridLayout(1,codeLenght)); //PROBLEM HERE
+        gamePanel.setLayout(new GridLayout(1,codeLenght));
+        gamePanel.setBackground(bg);
         secretCode = newSecretCode;
         guess = new int[codeLenght];
         guessClaim = new boolean[codeLenght];

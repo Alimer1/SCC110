@@ -7,7 +7,10 @@ public class ResultScreen
     private JPanel resultPanel = new JPanel();
     private int codeLenght;
     private int width;
+
     private JLabel labels[];        //Array of icons
+    private final Color bg = new Color(140,102,22);                   //Colour of the background, same as the symbols
+
     private int correct = 0;        //How many correct guesses have been made in the correct location
     private int halfCorrect = 0;    //How many correct guesses have been made in the wrong location
 
@@ -29,6 +32,7 @@ public class ResultScreen
         }
 
         resultPanel.setLayout(new GridLayout(2,width));
+        resultPanel.setBackground(bg);
 
         labels = new JLabel[codeLenght];
 
