@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Menu that appears before the game to make you choose your settings not much to say
+ */
 public class GameSettings implements ActionListener
 {
     private JFrame mainFrame = new JFrame("Settings");
@@ -13,9 +16,12 @@ public class GameSettings implements ActionListener
     private JLabel label1 = new JLabel("Difficulty");
     private JLabel label2 = new JLabel("Lenght");
 
+    /**
+     * Sets the whole settings ui
+     */
     public GameSettings()
     {
-        mainFrame.setContentPane(mainPanel);
+        mainFrame.setContentPane(mainPanel);            //Alot of setup for the menu
         mainPanel.setLayout(new GridLayout(3,2));
         mainPanel.setBackground(new Color(100,100,100));
         mainPanel.add(label1);
@@ -33,6 +39,9 @@ public class GameSettings implements ActionListener
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Makes the buttons push :)
+     */
     public void actionPerformed(ActionEvent e)
     {
         if(e.getSource() == button1)
