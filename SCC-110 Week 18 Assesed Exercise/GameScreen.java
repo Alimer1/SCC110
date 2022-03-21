@@ -15,25 +15,6 @@ public class GameScreen
     private JPanel gamePanel;       //Panel that will be sent to the GameController
     private JLabel labels[];        //Array of icons
 
-
-    public GameScreen(int newSecretCodeLenght,int newNumberOfColours) //If you are using this constructor then this is the first game screen and you will later request the secretCode from this game screen
-    {
-        numberOfColours = newNumberOfColours;
-        secretCodeLenght = newSecretCodeLenght;
-        secretCode = new int[secretCodeLenght]; //I lost too much IQ while figuring this out
-        guess = new int[secretCodeLenght];
-        guessClaim = new boolean[secretCodeLenght];
-
-        gamePanel.setLayout(new GridLayout(1,secretCodeLenght));
-
-        for(int i=0; i<secretCodeLenght;i++)
-        {
-            double n = Math.random()*(secretCodeLenght^10);
-            secretCode[i] = (int) n;
-            labels[i] = new JLabel(new Picture("Empty.png"));
-            gamePanel.add(labels[i]);
-        }
-    }
     
 
     public GameScreen(int newSecretCodeLenght,int newNumberOfColours,int newSecretCode[])
