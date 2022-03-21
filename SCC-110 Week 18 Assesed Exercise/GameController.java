@@ -13,7 +13,6 @@ public class GameController
     private JPanel resultPanel = new JPanel();
 
     private JLabel title = new JLabel("Hello There Buttons >.<");
-    private ColourScreen colourPanel = new ColourScreen(7);
     private GameScreen gameScreens[];
     private ResultScreen resultScreens[];
 
@@ -46,6 +45,31 @@ public class GameController
             gamePanel.add(gameScreens[i].getGameScreen());
             resultPanel.add(resultScreens[i].getResultScreen());
         }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         mainPanel.add(resultPanel,BorderLayout.EAST);
         mainPanel.add(gamePanel,BorderLayout.WEST);
