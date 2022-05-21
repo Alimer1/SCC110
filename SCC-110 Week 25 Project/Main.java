@@ -1,4 +1,3 @@
-
 public class Main
 {
     public static void main(String[] args) throws InterruptedException
@@ -10,7 +9,7 @@ public class Main
         Line rightLine = new Line(900,100,900,400,5,"RED");
         Line bottomLine = new Line(900,400,100,400,5,"RED");
         Line leftLine = new Line(100,400,100,100,5,"RED");
-        Text text = new Text("Counter:",20,500,150,"ORANGE");
+        Text text = new Text("Frames:",20,500,150,"ORANGE");
         int counter = 0;
 
         mainGame.addBall(ball);
@@ -20,26 +19,58 @@ public class Main
         mainGame.addLine(leftLine);
         mainGame.addText(text);
 
-        double ballXSpeed = 1;
-        double ballYSpeed = 1;
+        double ballXSpeed = 0;
+        double ballYSpeed = 0;
 
         boolean gameOver = false;
 
-        while(gameOver == false)
+        while(gameOver == false)    //Main loop of the program that triggers every second until game over
         {
 
-            if(ball.getYPosition()>400-25||ball.getYPosition()<100+25)
+            ballXSpeed = 0;
+            ballYSpeed = 0;
+
+            if(mainGame.upPressed()==true)
             {
-                ballYSpeed = ballYSpeed * -1;
+                ballYSpeed = -1;
             }
-            if(ball.getXPosition()>900-25||ball.getXPosition()<100+25)
+            if(mainGame.downPressed()==true)
             {
-                ballXSpeed = ballXSpeed * -1;
+                ballYSpeed = 1;
             }
+            if(mainGame.rightPressed()==true)
+            {
+                ballXSpeed = 1;
+            }
+            if(mainGame.leftPressed()==true)
+            {
+                ballXSpeed = -1;
+            }
+            if(ball.getYPosition()>400-25&&ballYSpeed>0)
+            {
+                ballYSpeed=0;
+            }
+            if(ball.getYPosition()<100+25&&ballYSpeed<0)
+            {
+                ballYSpeed=0;
+            }
+            if(ball.getXPosition()>900-25&&ballXSpeed>0)
+            {
+                ballXSpeed=0;
+            }
+            if(ball.getXPosition()<100+25&&ballXSpeed<0)
+            {
+                ballXSpeed=0;
+            }
+
+
+
+
+
             ball.setXPosition(ball.getXPosition()+ballXSpeed);
             ball.setYPosition(ball.getYPosition()+ballYSpeed);
             counter++;
-            text.setText("Counter:"+counter);
+            text.setText("Frames:"+counter/60);
             Thread.sleep(16);
         }
     }
