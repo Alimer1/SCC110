@@ -3,21 +3,20 @@ public class Main
     public static void main(String[] args) throws InterruptedException
     {
         GameArena mainGame = new GameArena(1000,500);
-        Ball ball = new Ball(500,250,50,"BLUE");
+        Player player[] = new Player[2];
+        Line wall[] = new Line[4];
 
-        Line topLine = new Line(100,100,900,100,5,"RED");
-        Line rightLine = new Line(900,100,900,400,5,"RED");
-        Line bottomLine = new Line(900,400,100,400,5,"RED");
-        Line leftLine = new Line(100,400,100,100,5,"RED");
-        Text text = new Text("Frames:",20,500,150,"ORANGE");
-        int counter = 0;
+        for(int i=0;i<2;i++)
+        {
+            player[i] = new Player(i);
+            mainGame.addBall(player[i].getBall());
+        }
+        for(int i=0;i<4;i++)
+        {
+            wall[i] = new Line(100, 100+(i*50), 800, 150+(i*50), 5, "RED");
+            mainGame.addLine(wall[i]);
+        }
 
-        mainGame.addBall(ball);
-        mainGame.addLine(topLine);
-        mainGame.addLine(rightLine);
-        mainGame.addLine(bottomLine);
-        mainGame.addLine(leftLine);
-        mainGame.addText(text);
 
         double ballXSpeed = 0;
         double ballYSpeed = 0;
@@ -32,45 +31,32 @@ public class Main
 
             if(mainGame.upPressed()==true)
             {
-                ballYSpeed = -1;
+                ballYSpeed = -3;
             }
             if(mainGame.downPressed()==true)
             {
-                ballYSpeed = 1;
+                ballYSpeed = 3;
             }
             if(mainGame.rightPressed()==true)
             {
-                ballXSpeed = 1;
+                ballXSpeed = 3;
             }
             if(mainGame.leftPressed()==true)
             {
-                ballXSpeed = -1;
-            }
-            if(ball.getYPosition()>400-25&&ballYSpeed>0)
-            {
-                ballYSpeed=0;
-            }
-            if(ball.getYPosition()<100+25&&ballYSpeed<0)
-            {
-                ballYSpeed=0;
-            }
-            if(ball.getXPosition()>900-25&&ballXSpeed>0)
-            {
-                ballXSpeed=0;
-            }
-            if(ball.getXPosition()<100+25&&ballXSpeed<0)
-            {
-                ballXSpeed=0;
+                ballXSpeed = -3;
             }
 
 
+            boolean c = Coordinates.lineBallColision(player[0].getBall(), wall[0]);
+            double d = Coordinates.lineBallDistance(player[0].getBall(), wall[0]);
+            double cp[] = Coordinates.lineBallClosestPoint(player[0].getBall(), wall[0], d);
+
+            wall[1].setLinePosition(player[0].getX(),player[0].getY(), cp[0], cp[1]);
+
+            player[0].setX(player[0].getX()+ballXSpeed);
+            player[0].setY(player[0].getY()+ballYSpeed);
 
 
-
-            ball.setXPosition(ball.getXPosition()+ballXSpeed);
-            ball.setYPosition(ball.getYPosition()+ballYSpeed);
-            counter++;
-            text.setText("Frames:"+counter/60+"\nCollision:"+PlayerBall.lineBallColision(ball, topLine));
             Thread.sleep(16);
         }
     }
