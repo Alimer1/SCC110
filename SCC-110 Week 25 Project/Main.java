@@ -70,7 +70,7 @@ public class Main
             ball.setXPosition(ball.getXPosition()+ballXSpeed);
             ball.setYPosition(ball.getYPosition()+ballYSpeed);
             counter++;
-            text.setText("Frames:"+counter/60);
+            text.setText("Frames:"+counter/60+"\nCollision:"+PlayerBall.lineBallColision(ball, topLine));
             Thread.sleep(16);
         }
     }
