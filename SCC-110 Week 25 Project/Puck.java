@@ -1,16 +1,16 @@
-public class Player
+public class Puck
 {
-
     private Ball ball;
     private Coordinates position;
     private Coordinates velocity;
-    private double r = 25;
-    private int score = 0;
+    private double r = 10;
+    private boolean type; // true = magnet, false = puck 
 
-    public Player(int number)
+    public Puck(double nx,double ny,boolean nType)
     {
-        ball = new Ball(250+(500*number), 250,50, "White");    
-        position = new Coordinates(ball.getXPosition(), ball.getYPosition());
+        type = nType;
+        ball = new Ball(nx, ny, r*2, "YELLOW");
+        position = new Coordinates(nx, ny);
         velocity = new Coordinates(0,0);
     }
 

@@ -1,5 +1,3 @@
-import java.util.Vector;
-
 public class Coordinates
 {
 
@@ -160,12 +158,26 @@ public class Coordinates
         double sLine = cos * v2.distanceFromOrigin();
         //System.out.println(sLine);
         double ratio = sLine/Line;
-        System.out.println(ratio);
+        System.out.println("Ratio:"+ratio);
         Coordinates f0 = new Coordinates(v1.getX()*ratio,v1.getY()*ratio);
         Coordinates answer = new Coordinates(v2.getX()-f0.getX(),v2.getY()-f0.getY());
-        System.out.println("X:"+v1.getX());
-        System.out.println("Y:"+v1.getY());
+        System.out.println("X:"+answer.getX());
+        System.out.println("Y:"+answer.getY());
         return(answer);
+    }
+
+    static Coordinates add(Coordinates v1, Coordinates v2)
+    {
+        v1.setX(v1.getX()+v2.getX());
+        v1.setY(v1.getY()+v2.getY());
+        return(v1);
+    }
+
+    static Coordinates sub(Coordinates v1, Coordinates v2)
+    {
+        v1.setX(v1.getX()-v2.getX());
+        v1.setY(v1.getY()-v2.getY());
+        return(v1);
     }
 
 }
