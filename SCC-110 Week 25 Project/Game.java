@@ -45,6 +45,10 @@ public class Game implements ActionListener
             System.out.println("You Are Replaying The Game");
             menuFrame.setVisible(false);
             gameSetup();
+            mainGame.pauseLonger();
+            loop = true;
+            playerLeftScore = 0;
+            playerRightScore = 0;
             gameLoop();
         }
         if(e.getSource() == exitButton)
@@ -81,9 +85,11 @@ public class Game implements ActionListener
     private void menuSetup()
     {
         menuPanel.setLayout(new GridLayout(1,2));
+        replayButton.addActionListener(this);
+        exitButton.addActionListener(this);
         menuPanel.add(replayButton);
         menuPanel.add(exitButton);
-        menuFrame.setSize(200,50);
+        menuFrame.setSize(200,100);
         menuFrame.setAlwaysOnTop(true);
         menuFrame.add(menuPanel);
     }
@@ -132,35 +138,37 @@ public class Game implements ActionListener
 
     private void scoreCheck()
     {
+        boolean rW = goal[0].collides(puck[0].getBall())||goal[0].collides(player[1].getBall())||player[1].getScore()==2;
+        boolean lW = goal[1].collides(puck[0].getBall())||goal[1].collides(player[0].getBall())||player[0].getScore()==2;
+        if(rW)
+        {
+            playerRightScore++;
+        }
+        if(lW)
+        {
+            playerLeftScore++;
+        }
         if(playerLeftScore>5||playerRightScore>5)
         {
             if(playerLeftScore>5)
             {
                 menuFrame.setTitle("Left Player Wins!!");
-                menuFrame.setVisible(true);
             }
             if(playerRightScore>5)
             {
                 menuFrame.setTitle("Right Player Wins!!");
-                menuFrame.setVisible(true);
             }
+            menuFrame.setVisible(true);
+            loop = false;
         }
         else
         {
-            if(goal[0].collides(puck[0].getBall())||goal[0].collides(player[1].getBall())||player[1].getScore()==2)
+            if(rW||lW)
             {
-                playerRightScore++;
-                gameSetup();
-                mainGame.pauseLonger();
-            }
-            if(goal[1].collides(puck[0].getBall())||goal[1].collides(player[0].getBall())||player[0].getScore()==2)
-            {
-                playerLeftScore++;
                 gameSetup();
                 mainGame.pauseLonger();
             }
         }
-
     }
 
     private void move()
@@ -203,7 +211,7 @@ public class Game implements ActionListener
         {
             for(int j=0;j<4;j++)
             {
-                if(puck[i].getBall().collides(puck[j].getBall())&&i>j&&puck[i].getAlive())
+                if(puck[i].getBall().collides(puck[j].getBall())&&i>j&&puck[i].getAlive()&&puck[j].getAlive())
                 {
                     double results[] = deflect(puck[i].getPositionX(), puck[i].getPositionY(), puck[j].getPositionX(), puck[j].getPositionY(), puck[i].getVelocityX(), puck[i].getVelocityY(), puck[j].getVelocityX(), puck[j].getVelocityY());
                     puck[i].setVelocity(new Coordinates(results[0],results[1]));
