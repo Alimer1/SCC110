@@ -219,8 +219,19 @@ public class Game
                         mainGame.removeBall(puck[j].getBall());
                         player[i].addScore();
                     }
-                    double results[] = deflect(player[i].getPositionX(), player[i].getPositionY(), puck[j].getPositionX(), puck[j].getPositionY(), player[i].getVelocityX(), player[i].getVelocityY(), puck[j].getVelocityX(), puck[j].getVelocityY());
-                    puck[j].setVelocity(new Coordinates(results[2],results[3]));
+                    else
+                    {
+                        double results[] = deflect(player[i].getPositionX(),player[i].getPositionY(),puck[j].getPositionX(),puck[j].getPositionY(),player[i].getVelocityX(),player[i].getVelocityY(),puck[j].getVelocityX(),puck[j].getVelocityY());
+                        if(Double.isNaN(results[0])||Double.isNaN(results[1]))
+                        {
+                            System.out.println("Error Happened");
+                        }
+                        else
+                        {
+                            puck[j].setVelocity(new Coordinates(results[2],results[3]));
+                        }
+
+                    }
                 }
             }
         }

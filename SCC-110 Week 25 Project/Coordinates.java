@@ -58,32 +58,42 @@ public class Coordinates
         return(v1);
     }
 
+    Coordinates abs()
+    {
+        Coordinates abs = new Coordinates(Math.abs(x),Math.abs(y));
+        return (abs);
+    }
+
     static Coordinates add(Coordinates v1, Coordinates v2)
     {
-        v1.setX(v1.getX()+v2.getX());
-        v1.setY(v1.getY()+v2.getY());
-        return(v1);
+        Coordinates v3 = new Coordinates(0,0);
+        v3.setX(v1.getX()+v2.getX());
+        v3.setY(v1.getY()+v2.getY());
+        return(v3);
     }
 
     static Coordinates sub(Coordinates v1, Coordinates v2)
     {
-        v1.setX(v1.getX()-v2.getX());
-        v1.setY(v1.getY()-v2.getY());
-        return(v1);
+        Coordinates v3 = new Coordinates(0,0);
+        v3.setX(v1.getX()-v2.getX());
+        v3.setY(v1.getY()-v2.getY());
+        return(v3);
     }
 
     static Coordinates div(Coordinates v1, Coordinates v2)
     {
-        v1.setX(v1.getX()/v2.getX());
-        v1.setY(v1.getY()/v2.getY());
-        return(v1);
+        Coordinates v3 = new Coordinates(0,0);
+        v3.setX(v1.getX()/v2.getX());
+        v3.setY(v1.getY()/v2.getY());
+        return(v3);
     }
 
     static Coordinates mul(Coordinates v1, Coordinates v2)
     {
-        v1.setX(v1.getX()*v2.getX());
-        v1.setY(v1.getY()*v2.getY());
-        return(v1);
+        Coordinates v3 = new Coordinates(0,0);
+        v3.setX(v1.getX()*v2.getX());
+        v3.setY(v1.getY()*v2.getY());
+        return(v3);
     }
 
     static double distance(Coordinates v1, Coordinates v2)
