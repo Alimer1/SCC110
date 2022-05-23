@@ -1,8 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
-public class Game implements ActionListener
+public class Game
 {
 
     private int width = 1200;
@@ -14,84 +10,63 @@ public class Game implements ActionListener
     private Player player[] = new Player[2];
     private Line wall[] = new Line[4];
     private Ball goal[] = new Ball[2];
-    private Text text[] = new Text[2];
+    private Text text[] = new Text[6];  //0=left score,1=right score,2=countdown,3-5=gameover text
 
     private int playerLeftScore = 0;
     private int playerRightScore = 0;
 
     private boolean loop = true;
 
-    private JFrame menuFrame = new JFrame();
-    private JPanel menuPanel = new JPanel();
-    private JButton replayButton = new JButton("Play Again");
-    private JButton exitButton = new JButton("Exit");
-
 
     public Game()
     {
-        menuSetup();
-
         gameSetup();
-
-        mainGame.pauseLonger();
 
         gameLoop();
     }
 
-    public void actionPerformed(ActionEvent e) //button checker
+    private void countDownTimer()
     {
-        if(e.getSource() == replayButton)
-        {
-            System.out.println("You Are Replaying The Game");
-            menuFrame.setVisible(false);
-            gameSetup();
-            mainGame.pauseLonger();
-            loop = true;
-            playerLeftScore = 0;
-            playerRightScore = 0;
-            gameLoop();
-        }
-        if(e.getSource() == exitButton)
-        {
-            System.out.println("You Exited The Game");
-            mainGame.exit();
-        }
+        text[2].setText("5");
+        mainGame.pause(1000);
+        text[2].setText("4");
+        mainGame.pause(1000);
+        text[2].setText("3");
+        mainGame.pause(1000);
+        text[2].setText("2");
+        mainGame.pause(1000);
+        text[2].setText("1");
+        mainGame.pause(1000);
+        text[2].setText("");
     }
 
     private void gameLoop()
     {
-        while(loop)    //Main loop of the program that triggers 60 times a second
+        while(true)    //Main loop of the program that triggers 60 times a second
         {
-
-            player[0].setVelocity(new Coordinates(0,0));
-            player[1].setVelocity(new Coordinates(0,0));
-
-            playerMovement();
-
-            puckPlayerCollision();
-
-            puckPuckCollision();
-            
-            puckWallCollision();
-
-            move();
-
-            scoreCheck();
-
-            mainGame.pause();
+            if(loop==true)
+            {
+                player[0].setVelocity(new Coordinates(0,0));
+                player[1].setVelocity(new Coordinates(0,0));
+    
+                playerMovement();
+    
+                puckPlayerCollision();
+    
+                puckPuckCollision();
+                
+                puckWallCollision();
+    
+                move();
+    
+                scoreCheck();
+            }
+            else
+            {
+                menuInput();
+            }
+            mainGame.pause(16);
         }
-    }
-
-    private void menuSetup()
-    {
-        menuPanel.setLayout(new GridLayout(1,2));
-        replayButton.addActionListener(this);
-        exitButton.addActionListener(this);
-        menuPanel.add(replayButton);
-        menuPanel.add(exitButton);
-        menuFrame.setSize(200,100);
-        menuFrame.setAlwaysOnTop(true);
-        menuFrame.add(menuPanel);
     }
 
     private void gameSetup()
@@ -116,8 +91,13 @@ public class Game implements ActionListener
         wall[3] = new Line(border, height-border, border, border, 5, "RED");
         goal[0] = new Ball(((1*(width-(2*border)))/8)+border,height/2,100,"GREY",-1);
         goal[1] = new Ball(((7*(width-(2*border)))/8)+border,height/2,100,"GREY",-1);
-        text[0] = new Text("Left Score is: "+playerLeftScore, border/2, 0, border/2, "WHITE");
-        text[1] = new Text("Right Score is: "+playerRightScore, border/2, width/2, border/2, "WHITE");
+        text[0] = new Text("Left Player Score is: "+playerLeftScore, border/2,border, border-5, "WHITE");
+        text[1] = new Text("Right Player Score is: "+playerRightScore, border/2, border, (border/2)-5, "WHITE");
+        text[2] = new Text("",200,(width/2)-60,height/2,"RED",2);
+        text[3] = new Text("Left Player Wins",50,border,height-border-105,"WHITE",1);
+        text[4] = new Text("Press SPACE to Restart",50,border,height-border-55,"WHITE",1);
+        text[5] = new Text("Press ESC to Quit",50,border,height-border-5,"WHITE",1);
+
 
         mainGame.clearGameArena();
         mainGame.addBall(puck[0].getBall());
@@ -134,6 +114,8 @@ public class Game implements ActionListener
         mainGame.addBall(goal[1]);
         mainGame.addText(text[0]);
         mainGame.addText(text[1]);
+        mainGame.addText(text[2]);
+        countDownTimer();
     }
 
     private void scoreCheck()
@@ -152,13 +134,15 @@ public class Game implements ActionListener
         {
             if(playerLeftScore>5)
             {
-                menuFrame.setTitle("Left Player Wins!!");
+                text[3].setText("Left Player Wins");
             }
             if(playerRightScore>5)
             {
-                menuFrame.setTitle("Right Player Wins!!");
+                text[3].setText("Right Player Wins");
             }
-            menuFrame.setVisible(true);
+            mainGame.addText(text[3]);
+            mainGame.addText(text[4]);
+            mainGame.addText(text[5]);
             loop = false;
         }
         else
@@ -166,7 +150,6 @@ public class Game implements ActionListener
             if(rW||lW)
             {
                 gameSetup();
-                mainGame.pauseLonger();
             }
         }
     }
@@ -275,6 +258,24 @@ public class Game implements ActionListener
         if(mainGame.letterPressed('a')&&!(player[1].getPositionX()<border+player[1].getR()))
         {
             player[1].setVelocityX(-5);
+        }
+    }
+
+    private void menuInput()
+    {
+        if(mainGame.spacePressed())
+        {
+            playerLeftScore = 0;
+            playerRightScore = 0;
+            loop = true;
+            mainGame.addText(text[3]);
+            mainGame.addText(text[4]);
+            mainGame.removeText(text[5]);
+            gameSetup();
+        }
+        if(mainGame.escPressed())
+        {
+            mainGame.exit();
         }
     }
 

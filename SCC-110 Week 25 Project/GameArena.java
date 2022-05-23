@@ -485,26 +485,16 @@ public class GameArena extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	/**
-	 * Pause for a 1/50 of a second.
+	 * Pause for i miliseconds
 	 * This method causes your program to delay for 1/50th of a second. You'll find this useful if you're trying to animate your application.
 	 *
 	 */
-	public void pause()
+	public void pause(int i)
 	{
-		try { Thread.sleep(16); }
+		try { Thread.sleep(i); } //made this function more usefull
 		catch (Exception e) {};
 	}
 
-	/**
-	 * Pause for 5 seconds.
-	 * This method causes your program to delay for 1/50th of a second. You'll find this useful if you're trying to animate your application.
-	 *
-	 */
-	public void pauseLonger()
-	{
-		try { Thread.sleep(5000); }	//I need also a long pause for my program
-		catch (Exception e) {};
-	}
 
 	/**
 	 *	Internal method to check if ASCII code is A-Z.
