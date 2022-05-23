@@ -14,7 +14,7 @@ public class Puck
         type = nType;
         if(type)
         {
-            ball = new Ball(nx, ny, r*2, "WHITE");
+            ball = new Ball(nx, ny, r*2, "LIGHTGREY");
         }
         else
         {

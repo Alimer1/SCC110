@@ -11,6 +11,7 @@ public class Game
     private Line wall[] = new Line[4];
     private Ball goal[] = new Ball[2];
     private Text text[] = new Text[6];  //0=left score,1=right score,2=countdown,3-5=gameover text
+    private Rectangle background = new Rectangle(border, border, width-(2*border),height-(2*border),"DARKGREY",-3);
 
     private int playerLeftScore = 0;
     private int playerRightScore = 0;
@@ -71,7 +72,7 @@ public class Game
 
     private void gameSetup()
     {
-        if(Math.random()>0.5)
+        if(playerRightScore>playerLeftScore)
         {
             puck[0] = new Puck(((3*(width-(2*border)))/8)+border, height/2, false);
         }
@@ -79,7 +80,6 @@ public class Game
         {
             puck[0] = new Puck(((5*(width-(2*border)))/8)+border, height/2, false);
         }
-
         puck[1] = new Puck(width/2, ((1*(height-(2*border)))/4)+border, true);
         puck[2] = new Puck(width/2, ((2*(height-(2*border)))/4)+border, true);
         puck[3] = new Puck(width/2, ((3*(height-(2*border)))/4)+border, true);
@@ -115,6 +115,7 @@ public class Game
         mainGame.addText(text[0]);
         mainGame.addText(text[1]);
         mainGame.addText(text[2]);
+        mainGame.addRectangle(background);
         countDownTimer();
     }
 

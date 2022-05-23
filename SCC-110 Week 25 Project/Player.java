@@ -9,7 +9,7 @@ public class Player
 
     public Player(double nx,double ny)
     {
-        ball = new Ball(nx, ny,50, "White");
+        ball = new Ball(nx, ny,50, "WHITE");
         position = new Coordinates(ball.getXPosition(), ball.getYPosition());
         velocity = new Coordinates(0,0);
     }
