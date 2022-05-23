@@ -11,10 +11,10 @@ public class Game
     private Player player[] = new Player[2];
     private Line wall[] = new Line[4];
     private Ball goal[] = new Ball[2];
-    Text text;
+    private Text text[] = new Text[2];
 
-    private int player1Score = 0;
-    private int player2Score = 0;
+    private int playerLeftScore = 0;
+    private int playerRightScore = 0;
 
 
     public Game() throws InterruptedException
@@ -38,7 +38,7 @@ public class Game
 
             move();
 
-            winCheck();
+            scoreCheck();
 
             Thread.sleep(16);   //I learned that sleep function in GameArena way too late.
         }
@@ -49,7 +49,7 @@ public class Game
         return(gameOver);
     }
 
-    private void setup()
+    private void setup()  throws InterruptedException
     {
         if(Math.random()>0.5)
         {
@@ -71,7 +71,8 @@ public class Game
         wall[3] = new Line(border, height-border, border, border, 5, "RED");
         goal[0] = new Ball(((1*(width-(2*border)))/8)+border,height/2,100,"GREY",-1);
         goal[1] = new Ball(((7*(width-(2*border)))/8)+border,height/2,100,"GREY",-1);
-        text = new Text("TEXT HERE", border/2, width/2, border/2, "WHITE");
+        text[0] = new Text("Left Score is: "+playerLeftScore, border/2, 0, border/2, "WHITE");
+        text[1] = new Text("Right Score is: "+playerRightScore, border/2, width/2, border/2, "WHITE");
 
         mainGame.clearGameArena();
         mainGame.addBall(puck[0].getBall());
@@ -86,26 +87,22 @@ public class Game
         mainGame.addLine(wall[3]);
         mainGame.addBall(goal[0]);
         mainGame.addBall(goal[1]);
-        mainGame.addText(text);
+        mainGame.addText(text[0]);
+        mainGame.addText(text[1]);
+        Thread.sleep(5000); //To give people time to get ready
     }
 
-    private void winCheck() throws InterruptedException
+    private void scoreCheck() throws InterruptedException
     {
         if(goal[0].collides(puck[0].getBall())||goal[0].collides(player[1].getBall())||player[1].getScore()==2)
         {
-            System.out.println("Right Player Wins!");
-            text.setText("Right Player Wins!");
-            Thread.sleep(5000);
-            mainGame.exit();
-            gameOver = true;
+            playerRightScore++;
+            setup();
         }
-        if(goal[0].collides(puck[0].getBall())||goal[0].collides(player[0].getBall())||player[0].getScore()==2)
+        if(goal[1].collides(puck[0].getBall())||goal[1].collides(player[0].getBall())||player[0].getScore()==2)
         {
-            System.out.println("Left Player Wins!");
-            text.setText("Left Player Wins!");
-            Thread.sleep(5000);
-            mainGame.exit();
-            gameOver = true;
+            playerLeftScore++;
+            setup();
         }
     }
 
