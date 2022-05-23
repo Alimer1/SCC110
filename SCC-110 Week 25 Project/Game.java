@@ -1,7 +1,10 @@
-public class Game
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Game implements ActionListener
 {
 
-    private boolean gameOver = false;
     private int width = 1200;
     private int height = 800;
     private int border = 100;
@@ -16,13 +19,44 @@ public class Game
     private int playerLeftScore = 0;
     private int playerRightScore = 0;
 
+    private boolean loop = true;
 
-    public Game() throws InterruptedException
+    private JFrame menuFrame = new JFrame();
+    private JPanel menuPanel = new JPanel();
+    private JButton replayButton = new JButton("Play Again");
+    private JButton exitButton = new JButton("Exit");
+
+
+    public Game()
     {
+        menuSetup();
 
-        setup();
+        gameSetup();
 
-        while(gameOver == false)    //Main loop of the program that triggers every second until game over
+        mainGame.pauseLonger();
+
+        gameLoop();
+    }
+
+    public void actionPerformed(ActionEvent e) //button checker
+    {
+        if(e.getSource() == replayButton)
+        {
+            System.out.println("You Are Replaying The Game");
+            menuFrame.setVisible(false);
+            gameSetup();
+            gameLoop();
+        }
+        if(e.getSource() == exitButton)
+        {
+            System.out.println("You Exited The Game");
+            mainGame.exit();
+        }
+    }
+
+    private void gameLoop()
+    {
+        while(loop)    //Main loop of the program that triggers 60 times a second
         {
 
             player[0].setVelocity(new Coordinates(0,0));
@@ -40,16 +74,21 @@ public class Game
 
             scoreCheck();
 
-            Thread.sleep(16);   //I learned that sleep function in GameArena way too late.
+            mainGame.pause();
         }
     }
 
-    boolean returnGameState()
+    private void menuSetup()
     {
-        return(gameOver);
+        menuPanel.setLayout(new GridLayout(1,2));
+        menuPanel.add(replayButton);
+        menuPanel.add(exitButton);
+        menuFrame.setSize(200,50);
+        menuFrame.setAlwaysOnTop(true);
+        menuFrame.add(menuPanel);
     }
 
-    private void setup()  throws InterruptedException
+    private void gameSetup()
     {
         if(Math.random()>0.5)
         {
@@ -89,21 +128,39 @@ public class Game
         mainGame.addBall(goal[1]);
         mainGame.addText(text[0]);
         mainGame.addText(text[1]);
-        Thread.sleep(5000); //To give people time to get ready
     }
 
-    private void scoreCheck() throws InterruptedException
+    private void scoreCheck()
     {
-        if(goal[0].collides(puck[0].getBall())||goal[0].collides(player[1].getBall())||player[1].getScore()==2)
+        if(playerLeftScore>5||playerRightScore>5)
         {
-            playerRightScore++;
-            setup();
+            if(playerLeftScore>5)
+            {
+                menuFrame.setTitle("Left Player Wins!!");
+                menuFrame.setVisible(true);
+            }
+            if(playerRightScore>5)
+            {
+                menuFrame.setTitle("Right Player Wins!!");
+                menuFrame.setVisible(true);
+            }
         }
-        if(goal[1].collides(puck[0].getBall())||goal[1].collides(player[0].getBall())||player[0].getScore()==2)
+        else
         {
-            playerLeftScore++;
-            setup();
+            if(goal[0].collides(puck[0].getBall())||goal[0].collides(player[1].getBall())||player[1].getScore()==2)
+            {
+                playerRightScore++;
+                gameSetup();
+                mainGame.pauseLonger();
+            }
+            if(goal[1].collides(puck[0].getBall())||goal[1].collides(player[0].getBall())||player[0].getScore()==2)
+            {
+                playerLeftScore++;
+                gameSetup();
+                mainGame.pauseLonger();
+            }
         }
+
     }
 
     private void move()
