@@ -7,9 +7,9 @@ public class Player
     private double r = 25;
     private int score = 0;
 
-    public Player(int number)
+    public Player(double nx,double ny)
     {
-        ball = new Ball(250+(500*number), 250,50, "White");    
+        ball = new Ball(nx, ny,50, "White");
         position = new Coordinates(ball.getXPosition(), ball.getYPosition());
         velocity = new Coordinates(0,0);
     }
@@ -19,9 +19,19 @@ public class Player
         return(ball);
     }
 
+    int getScore()
+    {
+        return(score);
+    }
+
     double getR()
     {
         return(r);
+    }
+
+    void addScore()
+    {
+        score++;
     }
 
     //Position functions
